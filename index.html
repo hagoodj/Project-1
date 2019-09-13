@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="./assets/style.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <title>On Route</title>
+</head>
+
+<body>
+    
+    <div class = "container">
+        <div class="jumbotron">
+            <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!</h1>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="card">
+            <h5 class="card-header">Featured</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label id = "search-term-label">Starting Location</label>
+                        <div class = "row"><div class = "col-md-12"><input id="search-term" type="text"></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label id = "records-retrieved-label">Destination</label>
+                        <div class = "row"><div class = "col-md-12"><input id="records-retrieved" type="text"></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Preference</label>
+                        <div class = "row"><div class = "col-md-12"><input id="start-year" type="text"></div></div>
+                    </div>
+                    <button id = "search" class="btn btn-light"><i class="fa fa-search"></i>Find Restaurants</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class = "container">
+        <div class="card">
+            <h5 class="card-header">Recent Routes</h5>
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Starting Location</th>
+                        <th scope="col">Destination</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><button>a</button></td>
+                        <td id = 'recent1start'>a</td>
+                        <td id = 'recent1dest'>a</td>
+                      </tr>
+                      <tr>
+                        <td><button>a</button></td>
+                        <td id = 'recent2start'>a</td>
+                        <td id = 'recent2dest'>a</td>
+                      </tr>
+                      <tr>
+                        <td><button>a</button></td>
+                        <td id = 'recent3start'>a</td>
+                        <td id = 'recent3dest'>a</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="fixed-bottom">
+        <footer id = "footer">
+            <div class = "row justify-content-center"></div>
+        </footer>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script src="./assets/javascript/app.js"></script>
+    
+    <!-- Popper.js and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body>
