@@ -1,0 +1,35 @@
+.display-4 {
+    font-weight: bold;
+}
+
+.jumbotron,
+.card-header {
+    background-color: rgb(53, 53, 100);
+    color: white;
+}
+
+button {
+    background-color:#ff4f00;
+}
+
+.fa-search {
+    color:#ff4f00;
+}
+
+.fa-plus-circle {
+    color: white;
+}
+
+body {
+    background-image: url(./SanFrancisco_0.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#start-input,
+#dest-input,
+#pref-input {
+    width: 100%;
+}

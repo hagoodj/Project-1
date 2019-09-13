@@ -8,9 +8,11 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <link rel="stylesheet" type="text/css" href="./assets/style.css">
+  <link rel="stylesheet" type="text/css" href="./style.css">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <title>On Route</title>
 </head>
@@ -29,18 +31,18 @@
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label id = "search-term-label">Starting Location</label>
-                        <div class = "row"><div class = "col-md-12"><input id="search-term" type="text"></div></div>
+                        <label id = "start-label">Starting Location</label>
+                        <div class = "row"><div class = "col-md-12"><input id="start-input" type="text"></div></div>
                     </div>
                     <div class="form-group">
-                        <label id = "records-retrieved-label">Destination</label>
-                        <div class = "row"><div class = "col-md-12"><input id="records-retrieved" type="text"></div></div>
+                        <label id = "dest-label">Destination</label>
+                        <div class = "row"><div class = "col-md-12"><input id="dest-input" type="text"></div></div>
                     </div>
                     <div class="form-group">
-                        <label>Restaurant Preference</label>
-                        <div class = "row"><div class = "col-md-12"><input id="start-year" type="text"></div></div>
+                        <label id = "pref-label">Restaurant Preference</label>
+                        <div class = "row"><div class = "col-md-12"><input id="pref-input" type="text"></div></div>
                     </div>
-                    <button id = "search" class="btn btn-light"><i class="fa fa-search"></i>Find Restaurants</button>
+                    <button id = "search" class="btn btn-light"><i class="fa fa-search"></i> Find Restaurants</button>
                 </form>
             </div>
         </div>
@@ -59,19 +61,19 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><button>a</button></td>
-                        <td id = 'recent1start'>a</td>
-                        <td id = 'recent1dest'>a</td>
+                        <td><button><i class="fa fa-plus-circle"></i></button></td>
+                        <td id = 'recent1start'></td>
+                        <td id = 'recent1dest'></td>
                       </tr>
                       <tr>
-                        <td><button>a</button></td>
-                        <td id = 'recent2start'>a</td>
-                        <td id = 'recent2dest'>a</td>
+                        <td><button><i class="fa fa-plus-circle"></i></button></td>
+                        <td id = 'recent2start'></td>
+                        <td id = 'recent2dest'></td>
                       </tr>
                       <tr>
-                        <td><button>a</button></td>
-                        <td id = 'recent3start'>a</td>
-                        <td id = 'recent3dest'>a</td>
+                        <td><button><i class="fa fa-plus-circle"></i></button></td>
+                        <td id = 'recent3start'></td>
+                        <td id = 'recent3dest'></td>
                       </tr>
                     </tbody>
                   </table>
@@ -80,11 +82,11 @@
     </div>
     
 
-    <div class="fixed-bottom">
+    <!-- <div class="fixed-bottom">
         <footer id = "footer">
             <div class = "row justify-content-center"></div>
         </footer>
-    </div>
+    </div> -->
 
 
     <!-- jQuery -->
