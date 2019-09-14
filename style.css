@@ -45,3 +45,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.fa-map-marker {
+    color:#ff4f00;
+}
