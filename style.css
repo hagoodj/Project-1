@@ -5,6 +5,7 @@
 .jumbotron,
 .card-header {
     background-color: rgb(53, 53, 100);
+    opacity: .75;
     color: white;
 }
 
