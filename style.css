@@ -29,8 +29,8 @@ body {
     background-attachment: fixed;
 }
 
-#start-input,
-#dest-input,
+#start,
+#end,
 #pref-input {
     width: 100%;
 }
@@ -45,6 +45,12 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#map-canvas {
+  height: 80%;
+  width: 100%;
+  padding: 10px;
 }
 
 .fa-map-marker {
