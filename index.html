@@ -25,6 +25,17 @@
       margin: 0px;
       padding: 0px
     }
+
+    
+    #foodContainer {
+            border: 2px solid black;
+            overflow: auto;
+            width: 60%;
+            display: block;
+            margin: 10px auto;
+            padding: 20px;
+            height: 80vh;
+        }
 </style>
 
   </head>
@@ -67,12 +78,14 @@
 
     <div id="map_canvas" style="border: 2px solid #3872ac;"></div>
 
+    <div class = "container" id = "foodContainer"></div>
+
 </body>
 
 <script>
 
 
-$("#routebtn").on("click", function() {
+    $("#routebtn").on("click", function() {
       
       var startLoc = $("#start").val().trim();
       var endLoc = $("#end").val().trim();
@@ -243,7 +256,13 @@ $("#routebtn").on("click", function() {
 
     SnapToRoute.prototype.updateMarkerLocation_ = function(mouseLatLng) {
     var markerLatLng = this.getClosestLatLng(mouseLatLng);
-    console.log(markerLatLng)
+    console.log(markerLatLng.lat())
+    console.log(markerLatLng.lng())
+    markerLat = markerLatLng.lat()
+    console.log(markerLat)
+    markerLng = markerLatLng.lng()
+    console.log(markerLng)
+    yelp(markerLat, markerLng);
     this.marker_.setPosition(markerLatLng);
     };
 
@@ -332,7 +351,34 @@ $("#routebtn").on("click", function() {
         'to': to,
         'from': from
     };
-    }
+  }
+
+  function yelp(latinput, lnginput) {
+
+    jQuery.ajaxPrefilter(function (options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+        }
+    });
+
+    var preference= $("#pref-input").val().trim();
+
+    $.ajax({
+      url: 'https://api.yelp.com/v3/businesses/search?term=' + preference + '&limit=10' + '&radius=400' +'&latitude=' + latinput + '&longitude=' + lnginput,
+      method: "GET",
+
+      headers: {
+          authorization: "Bearer fK0vJ2qKBkGDlGiX4KDOi2XxOMIpBObt6DSJDg_rFafxhqhwGy-M29URQaFS3V5fYSgCUJRqT2PueV-QOtYFTti2XIXvnULht3c1Gk6zCd81eE7UAG6U4u1GYeR7XXYx"
+      }
+  }).then(function (response) {
+      console.log(response)
+
+      for (var i = 0; i < response.businesses.length; i++) {
+          $("#foodContainer").append('<img class="thumbnail" src="' + response.businesses[i].image_url + '"/><h2 class="name"><a href = ' + response.businesses[i].url + '>' + response.businesses[i].name + '</a></h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
+      }
+    });
+  }
+
 
 </script>
 
