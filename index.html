@@ -4,7 +4,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Directions Service</title>
+    <title>On Route</title>
     <style>
 
     </style>
@@ -28,6 +28,10 @@
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoyW6mwyqQklL1EJHPwt5fwZNKCQ4erAo"></script>
 
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+
   <div class = "container">
     <div class="jumbotron">
         <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
@@ -37,15 +41,15 @@
 
             <div class="form-group col-md-4">
                 <div class = "row justify-content-center"><label id = "start-label">Starting Location</label></div>
-                <div class = "row justify-content-center"><input type="text" id="start" /></div>
+                <div class = "row justify-content-center"><input type="text" id="start" placeholder="Location" /></div>
             </div>
             <div class="form-group col-md-4">
                 <div class = "row justify-content-center"><label id = "dest-label">Destination</label></div>
-                <div class = "row justify-content-center"><input type="text" id="end" /></div>
+                <div class = "row justify-content-center"><input type="text" id="end" placeholder="Location" /></div>
             </div>
             <div class="form-group col-md-3">
                 <div class = "row justify-content-center"><label id = "pref-label">Restaurant Preference</label></div>
-                <div class = "row justify-content-center"><input id="pref-input" type="text"></div>
+                <div class = "row justify-content-center"><input id="pref-input" type="text" placeholder="Cuisine"></div>
             </div>
             <div class = "col-md-1">
                 <div class = "row justify-content-center"><label id = "pref-label">Search</label></div>
@@ -58,6 +62,7 @@
     </div>
   </div>
 
+
     <br>
 
     <div class = "container" id="map_canvas"></div>
@@ -66,11 +71,24 @@
 
     <div class = "container" id = "foodContainer"></div>
 
+    <div class="sidenav">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Preferences</th>
+            </tr>
+            </thead>
+            <tbody id='for-append'>
+            </tbody>
+        </table>
+    </div>
+
 
 
 </body>
 
 <script>
+
 
     $("#foodContainer").hide();
 
@@ -353,7 +371,7 @@
     var preference= $("#pref-input").val().trim();
 
     $.ajax({
-      url: 'https://api.yelp.com/v3/businesses/search?term=' + preference + '&limit=10' + '&radius=400' +'&latitude=' + latinput + '&longitude=' + lnginput,
+      url: 'https://api.yelp.com/v3/businesses/search?term=' + preference + '&limit=10' + '&radius=400' + '&latitude=' + latinput + '&longitude=' + lnginput,
       method: "GET",
 
       headers: {
@@ -367,6 +385,70 @@
       }
     });
   }
+
+  // Taking my Firebase configuration settings straight from the wehsite and creating and object.
+    var firebaseConfig = {
+    apiKey: "AIzaSyBeVnCaWRrH0xCTB5_p1rrUflaaQ4RDJl4",
+    authDomain: "what-s-on-our-route-2.firebaseapp.com",
+    databaseURL: "https://what-s-on-our-route-2.firebaseio.com",
+    projectId: "what-s-on-our-route-2",
+    storageBucket: "",
+    messagingSenderId: "328528293558",
+    appId: "1:328528293558:web:0ea10cefa15d2b87324017"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Setting variable to Firebase method.
+    var database = firebase.database();
+
+    // Creating event listener function for when the user clicks the submit button. 
+    $('#routebtn').on('click', function(event) {
+
+    // First need to prevent the default action of the form's submit button which clears the form. 
+    event.preventDefault();
+
+    // Setting variables to capture the values from the user's form inputs. 
+
+    var prefInput = $('#pref-input').val().trim();
+
+    // Creating an object to store the form data. 
+    var addPreference = {
+        preference: prefInput,
+    };
+
+
+    // This is a firebase method that pushes the variable above to the firebase database. 
+    database.ref().push(addPreference);
+
+    // console-logging addUser's key-value info. so I can use devtools to inspect.
+    console.log(addPreference.preference)
+
+
+    // This removes the text from the input fields in the form after the the user clicks the submit button. 
+    $('#pref-input').val('');
+    });
+
+    // Using firebase's built-in methods, this main function will add what the user inputed in the form to the firebase database and then appened to the the HTML table. 
+    database.ref().on('child_added', function(childSnapshot) {
+    console.log(childSnapshot.val());
+
+    // Creating variables to store the form input data using firebase's childSnapshot() method. 
+    var prefInput = childSnapshot.val().preference;
+
+    // console-loggin train info for inspection.
+    console.log(prefInput);
+
+    var tableRow = $('<tr>');
+
+    tableRow.append(
+        $('<td>').text(prefInput),
+    )
+
+    // Finally we are appending the newly created rows to the HTML table. 
+    var preferences = $('#for-append');
+    preferences.append(tableRow);
+});
 
 
 </script>

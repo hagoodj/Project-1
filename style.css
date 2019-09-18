@@ -17,6 +17,7 @@ i {
 
 button {
     background-color:#ff4f00;
+    color: white;
 }
 
 .fa-search {
@@ -37,7 +38,10 @@ body {
 
 #start,
 #end,
-#pref-input {
+#pref-input,
+#pref-input2,
+#pref-input3,
+#price-input {
     width: 95%;
 }
 
@@ -64,9 +68,40 @@ body {
     margin: 10px auto;
     padding: 20px;
     background-color: white;
+    opacity: 0.9;
 }
 
 img {
     width: 80%;
     height: 80%;
 }
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(53, 53, 100);;
+    overflow-x: hidden;
+    padding-top: 20px;
+    opacity: .75;
+  }
+  
+  td,
+  th {
+    color: white;
+  }
+  
+
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
