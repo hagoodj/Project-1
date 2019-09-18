@@ -17,25 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <style>
-    html,
-    body,
-    #map_canvas {
-      height: 100%;
-      width: 100%;
-      margin: 0px;
-      padding: 0px
-    }
 
-    
-    #foodContainer {
-            border: 2px solid black;
-            overflow: auto;
-            width: 60%;
-            display: block;
-            margin: 10px auto;
-            padding: 20px;
-            height: 80vh;
-        }
 </style>
 
   </head>
@@ -47,6 +29,12 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoyW6mwyqQklL1EJHPwt5fwZNKCQ4erAo"></script>
 
   <div class = "container">
+    <div class="jumbotron">
+        <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
+    </div>
+  </div>
+
+  <div class = "container" id = "searchBar">
         <div class="card">
             <div class="card-body">
                 <form>
@@ -75,8 +63,11 @@
         </div>
     </div>
 
+    <br>
 
-    <div id="map_canvas" style="border: 2px solid #3872ac;"></div>
+    <div class = "container" id="map_canvas"></div>
+
+    <br>
 
     <div class = "container" id = "foodContainer"></div>
 
@@ -84,6 +75,7 @@
 
 <script>
 
+    $("#foodContainer").hide();
 
     $("#routebtn").on("click", function() {
       
@@ -352,6 +344,8 @@
     console.log("bark")
     console.log(markerLat)
     console.log(markerLng)
+
+    $("#foodContainer").show();
 
     jQuery.ajaxPrefilter(function (options) {
         if (options.crossDomain && jQuery.support.cors) {
