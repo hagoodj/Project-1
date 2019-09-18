@@ -1,92 +1,456 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>On Route</title>
+    <style>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <link rel="stylesheet" type="text/css" href="./style.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-  <title>On Route</title>
-</head>
-
-<body>
+    </style>
     
-    <div class = "container">
-        <div class="jumbotron">
-            <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
-        </div>
-    </div>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <div class = "container">
-        <div class="card">
-            <h5 class="card-header">Featured</h5>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label id = "start-label">Starting Location</label>
-                        <div class = "row"><div class = "col-md-12"><input id="start-input" type="text"></div></div>
-                    </div>
-                    <div class="form-group">
-                        <label id = "dest-label">Destination</label>
-                        <div class = "row"><div class = "col-md-12"><input id="dest-input" type="text"></div></div>
-                    </div>
-                    <div class="form-group">
-                        <label id = "pref-label">Restaurant Preference</label>
-                        <div class = "row"><div class = "col-md-12"><input id="pref-input" type="text"></div></div>
-                    </div>
-                    <button id = "search" class="btn btn-light"><i class="fa fa-search"></i> Find Restaurants</button>
-                </form>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <style>
+
+</style>
+
+  </head>
+  <body>
+
+      <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoyW6mwyqQklL1EJHPwt5fwZNKCQ4erAo"></script>
+
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+
+  <div class = "container">
+    <div class="jumbotron">
+        <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
+                
+        <form>
+            <div class = "row">
+
+            <div class="form-group col-md-4">
+                <div class = "row justify-content-center"><label id = "start-label">Starting Location</label></div>
+                <div class = "row justify-content-center"><input type="text" id="start" placeholder="Location" /></div>
             </div>
-        </div>
+            <div class="form-group col-md-4">
+                <div class = "row justify-content-center"><label id = "dest-label">Destination</label></div>
+                <div class = "row justify-content-center"><input type="text" id="end" placeholder="Location" /></div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class = "row justify-content-center"><label id = "pref-label">Restaurant Preference</label></div>
+                <div class = "row justify-content-center"><input id="pref-input" type="text" placeholder="Cuisine"></div>
+            </div>
+            <div class = "col-md-1">
+                <div class = "row justify-content-center"><label id = "pref-label">Search</label></div>
+                <div class = "row justify-content-center"><input type="button" class="fa fa-search" id="routebtn" value="&#xf002"></div>
+            </div>
+
+            </div>
+        </form>
+
     </div>
+  </div>
+
+
     <br>
-    <div class = "container">
-        <div class="card">
-            <h5 class="card-header">Recent Routes</h5>
-            <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Starting Location</th>
-                        <th scope="col">Destination</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><button><i class="fa fa-plus-circle"></i></button></td>
-                        <td id = 'recent1start'></td>
-                        <td id = 'recent1dest'></td>
-                      </tr>
-                      <tr>
-                        <td><button><i class="fa fa-plus-circle"></i></button></td>
-                        <td id = 'recent2start'></td>
-                        <td id = 'recent2dest'></td>
-                      </tr>
-                      <tr>
-                        <td><button><i class="fa fa-plus-circle"></i></button></td>
-                        <td id = 'recent3start'></td>
-                        <td id = 'recent3dest'></td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
-        </div>
+
+    <div class = "container" id="map_canvas"></div>
+
+    <br>
+
+    <div class = "container" id = "foodContainer"></div>
+
+    <div class="sidenav">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Preferences</th>
+            </tr>
+            </thead>
+            <tbody id='for-append'>
+            </tbody>
+        </table>
     </div>
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Script -->
-    <!-- <script src="./assets/javascript/app.js"></script> -->
-    
-    <!-- Popper.js and Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+
 </body>
+
+<script>
+
+
+    $("#foodContainer").hide();
+
+    $("#routebtn").on("click", function() {
+      
+      var startLoc = $("#start").val().trim();
+      var endLoc = $("#end").val().trim();
+      var queryURLStart = "https://api.opencagedata.com/geocode/v1/json?q=" + startLoc + "&key=5de65d8b73e24f3c873540d0515d0f0a";
+      var queryURLEnd = "https://api.opencagedata.com/geocode/v1/json?q=" + endLoc + "&key=5de65d8b73e24f3c873540d0515d0f0a";
+
+      var latitudeStart;
+      var longitudeStart;
+
+      var latitudeEnd;
+      var longitudeEnd;
+      
+      getLocationData(queryURLStart, queryURLEnd);
+
+    });
+
+    function getLocationData(URLStart, URLEnd) {
+
+      $.ajax({
+        url: URLStart,
+        method: "GET"
+      })
+        .then(function(response) {
+          var results = response.results;
+          latitudeStart = results[0].geometry.lat;
+          longitudeStart = results[0].geometry.lng;
+
+          $.ajax({
+            url: URLEnd,
+            method: "GET"
+          })
+            .then(function(response2) {
+              var results2 = response2.results;
+              latitudeEnd = results2[0].geometry.lat;
+              longitudeEnd = results2[0].geometry.lng;
+              initialize(latitudeStart, longitudeStart, latitudeEnd, longitudeEnd);
+            });
+          
+        });
+
+      }
+
+
+
+
+    var geocoder;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var polyline = new google.maps.Polyline({
+        path: [],
+        strokeColor: '#FF0000',
+        strokeWeight: 3
+    });
+    var marker;
+
+    function initialize(latStart, lngStart, latEnd, lngEnd) {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        map = new google.maps.Map(
+            document.getElementById("map_canvas"), {
+            center: new google.maps.LatLng(37.4419, -122.1419),
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+        calcRoute(latStart, lngStart, latEnd, lngEnd);
+        directionsDisplay.setMap(map);
+    }
+
+    function calcRoute(latStart, lngStart, latEnd, lngEnd) {
+        var start = new google.maps.LatLng(latStart, lngStart);
+        var end = new google.maps.LatLng(latEnd, lngEnd);
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+            // directionsDisplay.setDirections(response);
+            renderRoute(response);
+            }
+        });
+    }
+
+    function renderRoute(response) {
+        var bounds = new google.maps.LatLngBounds();
+        var route = response.routes[0];
+        var summaryPanel = document.getElementById("directions_panel");
+        var detailsPanel = document.getElementById("direction_details");
+        var path = response.routes[0].overview_path;
+        var legs = response.routes[0].legs;
+        for (i = 0; i < legs.length; i++) {
+            if (i == 0) {
+                marker = new google.maps.Marker({
+                position: legs[i].start_location,
+                draggable: true,
+                map: map
+            });
+            }
+            var steps = legs[i].steps;
+            for (j = 0; j < steps.length; j++) {
+                var nextSegment = steps[j].path;
+                for (k = 0; k < nextSegment.length; k++) {
+                    polyline.getPath().push(nextSegment[k]);
+                    bounds.extend(nextSegment[k]);
+                }
+            }
+        }
+
+        polyline.setMap(map);
+        map.fitBounds(bounds);
+        var snapToRoute = new SnapToRoute(map, marker, polyline);
+
+    }
+
+
+    function SnapToRoute(map, marker, polyline) {
+        this.routePixels_ = [];
+        this.normalProj_ = map.getProjection();
+        this.map_ = map;
+        this.marker_ = marker;
+        this.editable_ = Boolean(false);
+        this.polyline_ = polyline;
+
+        this.init_();
+    }
+
+    SnapToRoute.prototype.init_ = function() {
+        this.loadLineData_();
+        this.loadMapListener_();
+    };
+
+    SnapToRoute.prototype.updateTargets = function(marker, polyline) {
+        this.marker_ = marker || this.marker_;
+        this.polyline_ = polyline || this.polyline_;
+        this.loadLineData_();
+    };
+
+    SnapToRoute.prototype.loadMapListener_ = function() {
+        var me = this;
+
+    google.maps.event.addListener(me.marker_, "dragend", function(evt) {
+        me.updateMarkerLocation_(evt.latLng);
+    });
+
+    // google.maps.event.addListener(me.marker_, "drag", function(evt) {
+    //     me.updateMarkerLocation_(evt.latLng);
+    // });
+
+    google.maps.event.addListener(me.map_, "zoomend", function(evt) {
+        me.loadLineData_();
+    });
+    };
+
+    SnapToRoute.prototype.loadLineData_ = function() {
+        var zoom = this.map_.getZoom();
+        this.routePixels_ = [];
+        var path = this.polyline_.getPath();
+        for (var i = 0; i < path.getLength(); i++) {
+            var Px = this.normalProj_.fromLatLngToPoint(path.getAt(i));
+            this.routePixels_.push(Px);
+        }
+    };
+
+    SnapToRoute.prototype.updateMarkerLocation_ = function(mouseLatLng) {
+        var markerLatLng = this.getClosestLatLng(mouseLatLng);
+        markerLat = markerLatLng.lat()
+        markerLng = markerLatLng.lng()
+        this.marker_.setPosition(markerLatLng);
+        yelp(markerLat, markerLng)
+    };
+
+    SnapToRoute.prototype.getClosestLatLng = function(latlng) {
+        var r = this.distanceToLines_(latlng);
+        return this.normalProj_.fromPointToLatLng(new google.maps.Point(r.x, r.y));
+    };
+
+    SnapToRoute.prototype.getDistAlongRoute = function(latlng) {
+        if (typeof(opt_latlng) === 'undefined') {
+            latlng = this.marker_.getLatLng();
+        }
+        var r = this.distanceToLines_(latlng);
+        return this.getDistToLine_(r.i, r.to);
+    };
+
+    SnapToRoute.prototype.distanceToLines_ = function(mouseLatLng) {
+        var zoom = this.map_.getZoom();
+        var mousePx = this.normalProj_.fromLatLngToPoint(mouseLatLng);
+        var routePixels_ = this.routePixels_;
+        return this.getClosestPointOnLines_(mousePx, routePixels_);
+    };
+
+    SnapToRoute.prototype.getDistToLine_ = function(line, to) {
+        var routeOverlay = this.polyline_;
+        var d = 0;
+        for (var n = 1; n < line; n++) {
+            d += google.maps.geometry.spherical.computeDistanceBetween(routeOverlay.getAt(n - 1), routeOverlay.getAt(n));
+        }
+        d += google.maps.geometry.spherical.computeDistanceBetween(routeOverlay.getAt(line - 1), routeOverlay.getAt(line)) * to;
+        return d;
+    };
+
+    SnapToRoute.prototype.getClosestPointOnLines_ = function(pXy, aXys) {
+        var minDist;
+        var to;
+        var from;
+        var x;
+        var y;
+        var i;
+        var dist;
+
+        if (aXys.length > 1) {
+            for (var n = 1; n < aXys.length; n++) {
+                if (aXys[n].x !== aXys[n - 1].x) {
+                    var a = (aXys[n].y - aXys[n - 1].y) / (aXys[n].x - aXys[n - 1].x);
+                    var b = aXys[n].y - a * aXys[n].x;
+                    dist = Math.abs(a * pXy.x + b - pXy.y) / Math.sqrt(a * a + 1);
+                } else {
+                    dist = Math.abs(pXy.x - aXys[n].x);
+                }
+
+                var rl2 = Math.pow(aXys[n].y - aXys[n - 1].y, 2) + Math.pow(aXys[n].x - aXys[n - 1].x, 2);
+                var ln2 = Math.pow(aXys[n].y - pXy.y, 2) + Math.pow(aXys[n].x - pXy.x, 2);
+                var lnm12 = Math.pow(aXys[n - 1].y - pXy.y, 2) + Math.pow(aXys[n - 1].x - pXy.x, 2);
+                var dist2 = Math.pow(dist, 2);
+                var calcrl2 = ln2 - dist2 + lnm12 - dist2;
+                if (calcrl2 > rl2) {
+                    dist = Math.sqrt(Math.min(ln2, lnm12));
+                }
+
+                if ((minDist == null) || (minDist > dist)) {
+                    to = Math.sqrt(lnm12 - dist2) / Math.sqrt(rl2);
+                    from = Math.sqrt(ln2 - dist2) / Math.sqrt(rl2);
+                    minDist = dist;
+                    i = n;
+                }
+            }
+            if (to > 1) {
+                to = 1;
+            }
+            if (from > 1) {
+                to = 0;
+                from = 1;
+            }
+            var dx = aXys[i - 1].x - aXys[i].x;
+            var dy = aXys[i - 1].y - aXys[i].y;
+
+            x = aXys[i - 1].x - (dx * to);
+            y = aXys[i - 1].y - (dy * to);
+        }
+        
+        return {
+            'x': x,
+            'y': y,
+            'i': i,
+            'to': to,
+            'from': from
+        };
+    }
+
+
+  function yelp(latinput, lnginput) {
+
+    console.log("bark")
+    console.log(markerLat)
+    console.log(markerLng)
+
+    $("#foodContainer").show();
+
+    jQuery.ajaxPrefilter(function (options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+        }
+    });
+
+    var preference= $("#pref-input").val().trim();
+
+    $.ajax({
+      url: 'https://api.yelp.com/v3/businesses/search?term=' + preference + '&limit=10' + '&radius=400' + '&latitude=' + latinput + '&longitude=' + lnginput,
+      method: "GET",
+
+      headers: {
+          authorization: "Bearer fK0vJ2qKBkGDlGiX4KDOi2XxOMIpBObt6DSJDg_rFafxhqhwGy-M29URQaFS3V5fYSgCUJRqT2PueV-QOtYFTti2XIXvnULht3c1Gk6zCd81eE7UAG6U4u1GYeR7XXYx"
+      }
+  }).then(function (response) {
+      console.log(response)
+      $("#foodContainer").empty();
+      for (var i = 0; i < response.businesses.length; i++) {
+          $("#foodContainer").append('<div class = "row justify-content-center"><div class = "col-md-6"><img class = "restImage image-fluid" src="' + response.businesses[i].image_url + '"/></div><div class = "col-md-6"><div class = "row"><h2 class="name"><a href = ' + response.businesses[i].url + '>' + response.businesses[i].name + '</a></h2></div><div class = "row"><p class="phone">' + response.businesses[i].display_phone + '</p></div><div class = "row"><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p></div></div><hr></div>')
+      }
+    });
+  }
+
+  // Taking my Firebase configuration settings straight from the wehsite and creating and object.
+    var firebaseConfig = {
+    apiKey: "AIzaSyBeVnCaWRrH0xCTB5_p1rrUflaaQ4RDJl4",
+    authDomain: "what-s-on-our-route-2.firebaseapp.com",
+    databaseURL: "https://what-s-on-our-route-2.firebaseio.com",
+    projectId: "what-s-on-our-route-2",
+    storageBucket: "",
+    messagingSenderId: "328528293558",
+    appId: "1:328528293558:web:0ea10cefa15d2b87324017"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Setting variable to Firebase method.
+    var database = firebase.database();
+
+    // Creating event listener function for when the user clicks the submit button. 
+    $('#routebtn').on('click', function(event) {
+
+    // First need to prevent the default action of the form's submit button which clears the form. 
+    event.preventDefault();
+
+    // Setting variables to capture the values from the user's form inputs. 
+
+    var prefInput = $('#pref-input').val().trim();
+
+    // Creating an object to store the form data. 
+    var addPreference = {
+        preference: prefInput,
+    };
+
+
+    // This is a firebase method that pushes the variable above to the firebase database. 
+    database.ref().push(addPreference);
+
+    // console-logging addUser's key-value info. so I can use devtools to inspect.
+    console.log(addPreference.preference)
+
+
+    // This removes the text from the input fields in the form after the the user clicks the submit button. 
+    $('#pref-input').val('');
+    });
+
+    // Using firebase's built-in methods, this main function will add what the user inputed in the form to the firebase database and then appened to the the HTML table. 
+    database.ref().on('child_added', function(childSnapshot) {
+    console.log(childSnapshot.val());
+
+    // Creating variables to store the form input data using firebase's childSnapshot() method. 
+    var prefInput = childSnapshot.val().preference;
+
+    // console-loggin train info for inspection.
+    console.log(prefInput);
+
+    var tableRow = $('<tr>');
+
+    tableRow.append(
+        $('<td>').text(prefInput),
+    )
+
+    // Finally we are appending the newly created rows to the HTML table. 
+    var preferences = $('#for-append');
+    preferences.append(tableRow);
+});
+
+
+</script>
+
+</html>

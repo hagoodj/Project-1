@@ -2,15 +2,22 @@
     font-weight: bold;
 }
 
-.jumbotron,
-.card-header {
+i {
+    padding: 10px;
+}
+
+.jumbotron {
     background-color: rgb(53, 53, 100);
     opacity: .75;
     color: white;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    padding-top: 20px;
 }
 
 button {
     background-color:#ff4f00;
+    color: white;
 }
 
 .fa-search {
@@ -29,15 +36,13 @@ body {
     background-attachment: fixed;
 }
 
-#start-input,
-#dest-input,
-#pref-input {
-    width: 100%;
-}
-
-#map {
-    height: 50%;
-    margin: auto;
+#start,
+#end,
+#pref-input,
+#pref-input2,
+#pref-input3,
+#price-input {
+    width: 95%;
 }
 
 html,
@@ -47,6 +52,56 @@ body {
     padding: 0;
 }
 
+#map_canvas {
+  height: 80%;
+  width: 100%;
+  padding: 10px;
+}
+
 .fa-map-marker {
     color:#ff4f00;
 }
+
+#foodContainer {
+    overflow: auto;
+    display: block;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: white;
+    opacity: 0.9;
+}
+
+img {
+    width: 80%;
+    height: 80%;
+}
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(53, 53, 100);;
+    overflow-x: hidden;
+    padding-top: 20px;
+    opacity: .75;
+  }
+  
+  td,
+  th {
+    color: white;
+  }
+  
+
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
