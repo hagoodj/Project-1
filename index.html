@@ -31,37 +31,32 @@
   <div class = "container">
     <div class="jumbotron">
         <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
+                
+        <form>
+            <div class = "row">
+
+            <div class="form-group col-md-4">
+                <div class = "row justify-content-center"><label id = "start-label">Starting Location</label></div>
+                <div class = "row justify-content-center"><input type="text" id="start" /></div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class = "row justify-content-center"><label id = "dest-label">Destination</label></div>
+                <div class = "row justify-content-center"><input type="text" id="end" /></div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class = "row justify-content-center"><label id = "pref-label">Restaurant Preference</label></div>
+                <div class = "row justify-content-center"><input id="pref-input" type="text"></div>
+            </div>
+            <div class = "col-md-1">
+                <div class = "row justify-content-center"><label id = "pref-label">Search</label></div>
+                <div class = "row justify-content-center"><input type="button" class="fa fa-search" id="routebtn" value="&#xf002"></div>
+            </div>
+
+            </div>
+        </form>
+
     </div>
   </div>
-
-  <div class = "container" id = "searchBar">
-        <div class="card">
-            <div class="card-body">
-                <form>
-                  <div class = "row">
-
-                    <div class="form-group col-md-4">
-                        <div class = "row justify-content-center"><label id = "start-label">Starting Location</label></div>
-                        <div class = "row justify-content-center"><input type="text" id="start" /></div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <div class = "row justify-content-center"><label id = "dest-label">Destination</label></div>
-                        <div class = "row justify-content-center"><input type="text" id="end" /></div>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <div class = "row justify-content-center"><label id = "pref-label">Restaurant Preference</label></div>
-                        <div class = "row justify-content-center"><input id="pref-input" type="text"></div>
-                    </div>
-                    <div class = "col-md-1">
-                        <div class = "row justify-content-center"><label id = "pref-label">Search</label></div>
-                        <div class = "row justify-content-center"><input type="button" class="fa fa-search" id="routebtn" value="&#xf002"></div>
-                    </div>
-
-                  </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <br>
 
@@ -70,6 +65,8 @@
     <br>
 
     <div class = "container" id = "foodContainer"></div>
+
+
 
 </body>
 
@@ -364,9 +361,9 @@
       }
   }).then(function (response) {
       console.log(response)
-
+      $("#foodContainer").empty();
       for (var i = 0; i < response.businesses.length; i++) {
-          $("#foodContainer").append('<img class="thumbnail" src="' + response.businesses[i].image_url + '"/><h2 class="name"><a href = ' + response.businesses[i].url + '>' + response.businesses[i].name + '</a></h2><p class="phone">' + response.businesses[i].display_phone + '</p><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p><hr>')
+          $("#foodContainer").append('<div class = "row justify-content-center"><div class = "col-md-6"><img class = "restImage image-fluid" src="' + response.businesses[i].image_url + '"/></div><div class = "col-md-6"><div class = "row"><h2 class="name"><a href = ' + response.businesses[i].url + '>' + response.businesses[i].name + '</a></h2></div><div class = "row"><p class="phone">' + response.businesses[i].display_phone + '</p></div><div class = "row"><p class="address">' + response.businesses[i].location.address1 + ', ' + response.businesses[i].location.city + ' ' + response.businesses[i].location.zip_code + '</p></div></div><hr></div>')
       }
     });
   }

@@ -2,12 +2,17 @@
     font-weight: bold;
 }
 
-.jumbotron,
-.card-header {
+i {
+    padding: 10px;
+}
+
+.jumbotron {
     background-color: rgb(53, 53, 100);
     opacity: .75;
     color: white;
     margin-bottom: 0;
+    padding-bottom: 10px;
+    padding-top: 20px;
 }
 
 button {
@@ -33,7 +38,7 @@ body {
 #start,
 #end,
 #pref-input {
-    width: 100%;
+    width: 95%;
 }
 
 html,
@@ -54,11 +59,14 @@ body {
 }
 
 #foodContainer {
-    border: 2px solid black;
     overflow: auto;
-    width: 60%;
     display: block;
     margin: 10px auto;
     padding: 20px;
     background-color: white;
+}
+
+img {
+    width: 80%;
+    height: 80%;
 }
