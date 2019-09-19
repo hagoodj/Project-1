@@ -73,12 +73,8 @@
 
     <div class="sidenav">
         <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Preferences</th>
-            </tr>
-            </thead>
-            <tbody id='for-append'>
+            <tbody>
+                <td id='for-append'>Suggestions:</td>
             </tbody>
         </table>
     </div>
@@ -403,7 +399,7 @@
     var database = firebase.database();
 
     // Creating event listener function for when the user clicks the submit button. 
-    $('#routebtn').on('click', function(event) {
+    $('#search').on('click', function(event) {
 
     // First need to prevent the default action of the form's submit button which clears the form. 
     event.preventDefault();
@@ -439,11 +435,9 @@
     // console-loggin train info for inspection.
     console.log(prefInput);
 
-    var tableRow = $('<tr>');
+    var tableRow = $('<td>');
 
-    tableRow.append(
-        $('<td>').text(prefInput),
-    )
+    tableRow.append(prefInput);
 
     // Finally we are appending the newly created rows to the HTML table. 
     var preferences = $('#for-append');

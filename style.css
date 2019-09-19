@@ -77,20 +77,19 @@ img {
 }
 
 .sidenav {
-    height: 100%;
-    width: 160px;
     position: fixed;
     z-index: 1;
-    top: 0;
-    left: 0;
     background-color: rgb(53, 53, 100);;
-    overflow-x: hidden;
-    padding-top: 20px;
+    height: 10%;
+    width: 100%;
+    bottom: 0;
+    top: 90%;
+    overflow-y: hidden;
+    overflow-x: scroll;
     opacity: .75;
   }
   
-  td,
-  th {
+  td {
     color: white;
   }
   
@@ -100,8 +99,6 @@ img {
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
   }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+
+
+    
