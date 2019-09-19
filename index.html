@@ -34,7 +34,8 @@
 
   <div class = "container">
     <div class="jumbotron">
-        <h1 class="display-4 row justify-content-center">Find Restaurants on Your Route!<i class="fa fa-map-marker"></i></h1>
+        <h1 class="display-4 row justify-content-center">ROUTEstaurants<i class="fa fa-map-marker"></i></h1>
+        <h4 class = "row justify-content-center">Find Restaurants on Your Route!</h4>
                 
         <form>
             <div class = "row">
@@ -167,7 +168,6 @@
         };
         directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-            // directionsDisplay.setDirections(response);
             renderRoute(response);
             }
         });
